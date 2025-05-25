@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Basketball Scoreboard Admin</title>
+  <style>
+    /* 简单风格，和主界面呼应 */
+    body {
+      font-family: 'Arial Black', sans-serif;
+      background: #eee;
+      margin: 0; padding: 1vh 2vw;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 1vh;
+    }
+    form {
+      background: white;
+      padding: 2vh 2vw;
+      border-radius: 1vw;
+      max-width: 600px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    label {
+      display: block;
+      margin-top: 1.5vh;
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: #444;
+    }
+    input[type="text"], input[type="file"] {
+      width: 100%;
+      padding: 0.5vh 0.5vw;
+      font-size: 1.2rem;
+      margin-top: 0.5vh;
+      border: 2px solid #ccc;
+      border-radius: 0.5vw;
+    }
+    img {
+      max-height: 6vh;
+      margin-top: 0.5vh;
+      display: block;
+    }
+    button {
+      margin-top: 2vh;
+      font-size: 1.3rem;
+      padding: 1vh 2vw;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 0.5vw;
+      cursor: pointer;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Basketball Scoreboard Admin</h1>
+
+<form method="post" enctype="multipart/form-data">
+  <label for="teamAName">Team A Name</label>
+  <input type="text" id="teamAName" name="teamAName" value="{{ data.teamAName }}" required />
+
+  <label for="teamALogo">Team A Logo (webp)</label>
+  <input type="file" id="teamALogo" name="teamALogo" accept=".webp" />
+  <img src="static/{{ data.teamALogo }}" alt="Team A Logo" />
+
+  <label for="teamBName">Team B Name</label>
+  <input type="text" id="teamBName" name="teamBName" value="{{ data.teamBName }}" required />
+
+  <label for="teamBLogo">Team B Logo (webp)</label>
+  <input type="file" id="teamBLogo" name="teamBLogo" accept=".webp" />
+  <img src="static/{{ data.teamBLogo }}" alt="Team B Logo" />
+
+  <button type="submit">Save Changes</button>
+</form>
+
+</body>
+</html>

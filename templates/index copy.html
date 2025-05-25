@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Basketball Scoreboard</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0; width: 100vw; height: 100vh;
+      font-family: 'Arial Black', sans-serif;
+      background: #eee;
+    }
+
+    .scoreboard {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      background: #fff;
+    }
+
+    .team {
+      flex: 1;
+      text-align: center;
+      color: white;
+      padding: 1vh;
+      font-size: 4vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1vw;
+      font-weight: bold;
+    }
+
+    .team-a {
+      background: #d32f2f;
+    }
+
+    .team-a img {
+      height: 8vh;
+    }
+
+    .team-b {
+      background: #0288d1;
+    }
+
+    .team-b img {
+      height: 8vh;
+    }
+
+    .period {
+      position: absolute;
+      top: 11vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28vw;
+      height: 22vh;
+      background: rgba(255, 255, 255, 0);
+      text-align: center;
+      font-size: 12vh;
+      font-weight: bold;
+      color: #4caf50;
+      border: 0px solid #ccc;
+      border-radius: 1vh;
+      line-height: 10vh;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1vw;
+      user-select: none;
+    }
+
+    .period span {
+      user-select: text;
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2vh;
+      background: url('static/scoreboard_bg.webp') no-repeat center center;
+      background-size: cover;
+    }
+
+    .side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 3vh;
+      padding: 0 1vw;
+    }
+
+    .score-box {
+      padding: 2vh 2vw;
+      border-radius: 1vw;
+      text-align: center;
+      margin-bottom: 2vh;
+      width: 90%;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      color: white;
+      user-select: none;
+    }
+
+    .score-box-left {
+      background: rgba(211, 47, 47, 0.85);
+    }
+
+    .score-box-right {
+      background: rgba(2, 136, 209, 0.85);
+    }
+
+    .score {
+      font-size: 25vh;
+      margin: 2vh 0;
+    }
+
+    .adjust {
+      display: flex;
+      justify-content: center;
+      gap: 1vw;
+      font-size: 6vh;
+      cursor: pointer;
+      color: #fff;
+      user-select: none;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      gap: 2vw;
+      width: 100%;
+    }
+
+    .info {
+      background: rgba(255, 255, 255, 0);
+      border-radius: 0.5vw;
+      padding: 1vh 1vw;
+      margin-top: 1vh;
+      font-size: 8vh;
+      flex: 1;
+      text-align: center;
+      color: white;
+      font-weight: normal;
+      user-select: text;
+    }
+
+    .info input[type="number"] {
+      width: 15vh;
+      font-size: 8vh;
+      text-align: center;
+      border: 2px solid #ccc;
+      border-radius: 0.5vw;
+      background: #4caf50;
+      user-select: text;
+    }
+
+    input[type="number"] {
+      user-select: text;
+      color:white;
+    }
+
+    .middle {
+      background: rgba(248, 247, 247, 0.3);
+      color: rgb(10, 10, 10);
+      text-align: center;
+      padding: 2vh 2vw;
+      border-radius: 1vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 24vw;
+      max-width: 24vw;
+      min-height: 22vh;
+      margin: 0 2vw;
+      user-select: none;
+    }
+
+    .middle .time {
+      font-size: 18vh;
+      font-weight: bold;
+      user-select: text;
+      color:#4caf50;
+    }
+
+    .ctrl-btn {
+      font-size: 4vh;
+      padding: 1vh 2vw;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 1vh;
+      cursor: pointer;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+      transition: background-color 0.3s;
+      user-select: none;
+    }
+
+    .ctrl-btn:hover {
+      background-color: #388e3c;
+    }
+
+    /* 调整时间箭头容器 */
+    .time-adjust {
+      display: flex;
+      gap: 1vw;
+      font-size: 3vh;
+      color: rgba(255, 255, 255, 0);
+      user-select: none;
+    }
+
+    .time-adjust span {
+      cursor: pointer;
+      background: rgba(255, 254, 254, 0);
+      padding: 0 0.8vw;
+      border-radius: 0.5vw;
+      user-select: none;
+      line-height: 1.5;
+      color: #4caf5055;
+      font-weight: bold;
+      user-select: none;
+      transition: background-color 0.2s;
+    }
+
+    .time-adjust span:hover {
+      background-color: #bbb;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+<div class="scoreboard">
+  <div class="header">
+    <div class="team team-a">
+      <img src="static/{{ data.teamALogo }}" alt="Team A Logo" />
+      <div id="teamAName">{{ data.teamAName }}</div>
+    </div>
+    <div class="team team-b">
+      <img src="static/{{ data.teamBLogo }}" alt="Team B Logo" />
+      <div id="teamBName">{{ data.teamBName }}</div>
+    </div>
+  </div>
+
+  <div class="period" title="当前节数">
+    <span>第 <strong id="periodDisplay">{{ data.period }}</strong> 节</span>
+  </div>
+
+  <div class="main">
+    <div class="side">
+      <div class="score-box score-box-left">
+        <div class="score" id="scoreA">{{ data.scoreA }}</div>
+        <div class="adjust">
+          <span onclick="adjust('scoreA', 1)">▲</span>
+          <span onclick="adjust('scoreA', -1)">▼</span>
+        </div>
+        <div class="stats">
+          <div class="info">犯 规 <input id="foulA" type="number" min="0" value="{{ data.foulsA }}" /></div>
+          <div class="info">暂 停 <input id="timeoutA" type="number" min="0" value="{{ data.timeoutsA }}" /></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="middle">
+      <div class="time" id="time">{{ data.time }}</div>
+      <div class="time-adjust">
+        <span onclick="adjustTime(1,0)">▲</span>
+        <span onclick="adjustTime(-1,0)">▼</span>
+        <span onclick="adjustTime(0,1)">▲</span>
+        <span onclick="adjustTime(0,-1)">▼</span>
+      </div>
+      <div style="margin-top: 2vh; display: flex; gap: 2vw;">
+        <button onclick="toggleTimer()" class="ctrl-btn" id="startPauseBtn">{{ '暂停' if data.isRunning else '开始' }}</button>
+        <button onclick="resetTimer()" class="ctrl-btn">清零</button>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="score-box score-box-right">
+        <div class="score" id="scoreB">{{ data.scoreB }}</div>
+        <div class="adjust">
+          <span onclick="adjust('scoreB', 1)">▲</span>
+          <span onclick="adjust('scoreB', -1)">▼</span>
+        </div>
+        <div class="stats">
+          <div class="info">犯 规 <input id="foulB" type="number" min="0" value="{{ data.foulsB }}" /></div>
+          <div class="info">暂 停 <input id="timeoutB" type="number" min="0" value="{{ data.timeoutsB }}" /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let isRunning = {{ 'true' if data.isRunning else 'false' }};
+  let timer = null;
+  let period = {{ data.period }};
+  let overtime = false;
+
+  const ws = new WebSocket(`ws://${location.host}/ws`);
+
+  function sendUpdate(obj) {
+    ws.send(JSON.stringify(obj));
+  }
+
+  function tick() {
+    const el = document.getElementById("time");
+    let [m, s] = el.innerText.split(":").map(Number);
+    if (m === 0 && s === 0) {
+      stopTimer();
+      new Audio("static/buzzer.mp3").play();
+
+      if (!overtime && period < 4) {
+        period++;
+        setPeriodDisplay(period);
+        sendUpdate({ period, time: "10:00" });
+      } else if (!overtime && period === 4) {
+        overtime = true;
+        setPeriodDisplay("加时");
+        sendUpdate({ period: "加时", time: "05:00" });
+      } 
+      return;
+    }
+
+    if (s === 0) {
+      m--;
+      s = 59;
+    } else {
+      s--;
+    }
+
+    const timeStr = `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+    el.innerText = timeStr;
+    sendUpdate({ time: timeStr });
+  }
+
+  function startTimer() {
+    if (isRunning) return;
+    isRunning = true;
+    timer = setInterval(tick, 1000);
+    document.getElementById("startPauseBtn").innerText = "暂停";
+    sendUpdate({ isRunning: true });
+  }
+
+  function stopTimer() {
+    clearInterval(timer);
+    isRunning = false;
+    document.getElementById("startPauseBtn").innerText = "开始";
+    sendUpdate({ isRunning: false });
+  }
+
+  function toggleTimer() {
+    isRunning ? stopTimer() : startTimer();
+  }
+
+  function resetTimer() {
+  if (isRunning) return;
+  // 清除本地显示
+  document.getElementById("scoreA").innerText = "0";
+  document.getElementById("scoreB").innerText = "0";
+  document.getElementById("foulA").value = "0";
+  document.getElementById("foulB").value = "0";
+  document.getElementById("timeoutA").value = "0";
+  document.getElementById("timeoutB").value = "0";
+  document.getElementById("time").innerText = "12:00";
+  setPeriodDisplay(1);
+  isRunning = false;
+  overtime = false;
+  period = 1;
+  document.getElementById("startPauseBtn").innerText = "开始";
+
+  // 通知后端完整重置（包含所有字段）
+  sendUpdate({ reset: true });
+}
+
+
+  function setPeriodDisplay(p) {
+    document.getElementById("periodDisplay").innerText = p;
+  }
+
+  function adjust(id, amount) {
+    const el = document.getElementById(id);
+    let val = parseInt(el.innerText);
+    val = Math.max(0, val + amount);
+    el.innerText = val;
+    sendUpdate({
+      scoreA: parseInt(document.getElementById("scoreA").innerText),
+      scoreB: parseInt(document.getElementById("scoreB").innerText)
+    });
+  }
+
+  function adjustTime(mins, secs) {
+    if (isRunning) return;
+    const el = document.getElementById("time");
+    let [m, s] = el.innerText.split(":").map(Number);
+    m += mins;
+    s += secs;
+    if (s >= 60) { m += Math.floor(s / 60); s %= 60; }
+    else if (s < 0) {
+      if (m > 0) { m--; s += 60; } else { s = 0; }
+    }
+    m = Math.max(0, m);
+    const timeStr = `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+    el.innerText = timeStr;
+    sendUpdate({ time: timeStr });
+  }
+
+  ["foulA", "foulB", "timeoutA", "timeoutB"].forEach(id => {
+    document.getElementById(id).addEventListener("input", () => {
+      sendUpdate({
+        foulsA: parseInt(document.getElementById("foulA").value),
+        foulsB: parseInt(document.getElementById("foulB").value),
+        timeoutsA: parseInt(document.getElementById("timeoutA").value),
+        timeoutsB: parseInt(document.getElementById("timeoutB").value)
+      });
+    });
+  });
+
+  ws.onmessage = function (event) {
+    const d = JSON.parse(event.data);
+    document.getElementById("scoreA").innerText = d.scoreA;
+    document.getElementById("scoreB").innerText = d.scoreB;
+    document.getElementById("foulA").value = d.foulsA;
+    document.getElementById("foulB").value = d.foulsB;
+    document.getElementById("timeoutA").value = d.timeoutsA;
+    document.getElementById("timeoutB").value = d.timeoutsB;
+    document.getElementById("time").innerText = d.time;
+    document.getElementById("startPauseBtn").innerText = d.isRunning ? "暂停" : "开始";
+    isRunning = d.isRunning;
+    setPeriodDisplay(d.period);
+    document.querySelector(".team-a img").src = "static/" + d.teamALogo;
+    document.querySelector(".team-b img").src = "static/" + d.teamBLogo;
+    document.getElementById("teamAName").innerText = d.teamAName;
+    document.getElementById("teamBName").innerText = d.teamBName;
+  };
+</script>
+
+</body>
+</html>

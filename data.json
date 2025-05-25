@@ -1,0 +1,16 @@
+{
+  "scoreA": 1,
+  "scoreB": 1,
+  "foulsA": 1,
+  "foulsB": 1,
+  "timeoutsA": 1,
+  "timeoutsB": 1,
+  "period": "加时",
+  "time": "00:00",
+  "isRunning": false,
+  "resetEnabled": true,
+  "teamAName": "苍南县星海学校",
+  "teamBName": "苍南县星海学校",
+  "teamALogo": "logo.webp",
+  "teamBLogo": "logo.webp"
+}
