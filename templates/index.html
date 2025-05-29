@@ -5,8 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Basketball Scoreboard</title>
   <style>
+    :root {
+      --vh: 1vh;
+      --vw: 1vw;
+    }
+
     html, body {
-      margin: 0; padding: 0; width: 100vw; height: 100vh;
+      margin: 0; padding: 0;
+      width: 100vw; height: 100vh;
       font-family: 'Arial Black', sans-serif;
       background: #eee;
     }
@@ -28,64 +34,50 @@
       flex: 1;
       text-align: center;
       color: white;
-      padding: 1vh;
-      font-size: 4vh;
+      padding: calc(var(--vh) * 1);
+      font-size: calc(var(--vh) * 6);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 1vw;
+      gap: calc(var(--vw) * 1);
       font-weight: bold;
     }
 
-    .team-a {
-      background: #d32f2f;
-    }
+    .team-a { background: #d32f2f; }
+    .team-b { background: #0288d1; }
 
-    .team-a img {
-      height: 8vh;
-    }
-
-    .team-b {
-      background: #0288d1;
-    }
-
-    .team-b img {
-      height: 8vh;
+    .team-a img, .team-b img {
+      height: calc(var(--vh) * 8);
     }
 
     .period {
       position: absolute;
-      top: 11vh;
+      top: calc(var(--vh) * 11);
       left: 50%;
       transform: translateX(-50%);
-      width: 28vw;
-      height: 22vh;
-      background: rgba(255, 255, 255, 0);
+      width: calc(var(--vw) * 28);
+      height: calc(var(--vh) * 22);
+      background: transparent;
       text-align: center;
-      font-size: 12vh;
+      font-size: calc(var(--vh) * 10);
       font-weight: bold;
       color: #4caf50;
-      border: 0px solid #ccc;
-      border-radius: 1vh;
-      line-height: 10vh;
+      border-radius: calc(var(--vh) * 1);
+      line-height: calc(var(--vh) * 10);
       z-index: 10;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1vw;
+      gap: calc(var(--vw) * 1);
       user-select: none;
     }
 
-    .period span {
-      user-select: text;
-    }
-
     .main {
-      flex: 1;
+      flex: 1;  /* 占满剩余空间 */
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 2vh;
+      padding: calc(var(--vh) * 2);
       background: url('static/scoreboard_bg.webp') no-repeat center center;
       background-size: cover;
     }
@@ -95,15 +87,15 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      font-size: 3vh;
-      padding: 0 1vw;
+      font-size: calc(var(--vh) * 3);
+      padding: 0 calc(var(--vw) * 1);
     }
 
     .score-box {
-      padding: 2vh 2vw;
-      border-radius: 1vw;
+      padding: calc(var(--vh) * 2) calc(var(--vw) * 2);
+      border-radius: calc(var(--vw) * 1);
       text-align: center;
-      margin-bottom: 2vh;
+      margin-bottom: calc(var(--vh) * 2);
       width: 90%;
       font-weight: bold;
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -111,24 +103,19 @@
       user-select: none;
     }
 
-    .score-box-left {
-      background: rgba(211, 47, 47, 0.85);
-    }
-
-    .score-box-right {
-      background: rgba(2, 136, 209, 0.85);
-    }
+    .score-box-left { background: rgba(211, 47, 47, 0.85); }
+    .score-box-right { background: rgba(2, 136, 209, 0.85); }
 
     .score {
-      font-size: 25vh;
-      margin: 2vh 0;
+      font-size: calc(var(--vh) * 25);
+      margin: calc(var(--vh) * 2) 0;
     }
 
     .adjust {
       display: flex;
       justify-content: center;
-      gap: 1vw;
-      font-size: 6vh;
+      gap: calc(var(--vw) * 1);
+      font-size: calc(var(--vh) * 6);
       cursor: pointer;
       color: #fff;
       user-select: none;
@@ -137,16 +124,16 @@
     .stats {
       display: flex;
       justify-content: space-between;
-      gap: 2vw;
+      gap: calc(var(--vw) * 2);
       width: 100%;
     }
 
     .info {
-      background: rgba(255, 255, 255, 0);
-      border-radius: 0.5vw;
-      padding: 1vh 1vw;
-      margin-top: 1vh;
-      font-size: 8vh;
+      background: transparent;
+      border-radius: calc(var(--vw) * 0.5);
+      padding: calc(var(--vh) * 1) calc(var(--vw) * 1);
+      margin-top: calc(var(--vh) * 1);
+      font-size: calc(var(--vh) * 6);
       flex: 1;
       text-align: center;
       color: white;
@@ -154,52 +141,47 @@
       user-select: text;
     }
 
-    .info input[type="number"] {
-      width: 15vh;
-      font-size: 8vh;
+    /*.info input[type="number"] {
+      width: calc(var(--vh) * 15);
+      font-size: calc(var(--vh) * 8);
       text-align: center;
       border: 2px solid #ccc;
-      border-radius: 0.5vw;
+      border-radius: calc(var(--vw) * 0.5);
       background: #4caf50;
-      user-select: text;
-    }
-
-    input[type="number"] {
-      user-select: text;
-      color:white;
-    }
+      color: white;
+    }*/
 
     .middle {
-      background: rgba(248, 247, 247, 0.3);
+      background: rgba(248, 247, 247, 0);
       color: rgb(10, 10, 10);
       text-align: center;
-      padding: 2vh 2vw;
-      border-radius: 1vw;
+      padding: calc(var(--vh) * 2) calc(var(--vw) * 2);
+      border-radius: calc(var(--vw) * 1);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-width: 24vw;
-      max-width: 24vw;
-      min-height: 22vh;
-      margin: 0 2vw;
+      min-width: calc(var(--vw) * 24);
+      max-width: calc(var(--vw) * 24);
+      min-height: calc(var(--vh) * 22);
+      margin: 0 calc(var(--vw) * 2);
       user-select: none;
     }
 
     .middle .time {
-      font-size: 18vh;
+      font-size: calc(var(--vh) * 18);
       font-weight: bold;
       user-select: text;
-      color:#4caf50;
+      color: #4caf50;
     }
 
     .ctrl-btn {
-      font-size: 4vh;
-      padding: 1vh 2vw;
+      font-size: calc(var(--vh) * 4);
+      padding: calc(var(--vh) * 1) calc(var(--vw) * 2);
       background-color: #4caf50;
       color: white;
       border: none;
-      border-radius: 1vh;
+      border-radius: calc(var(--vh) * 1);
       cursor: pointer;
       box-shadow: 0 0 5px rgba(0,0,0,0.3);
       transition: background-color 0.3s;
@@ -210,95 +192,210 @@
       background-color: #388e3c;
     }
 
-    /* 调整时间箭头容器 */
     .time-adjust {
       display: flex;
-      gap: 1vw;
-      font-size: 3vh;
-      color: rgba(255, 255, 255, 0);
+      gap: calc(var(--vw) * 1);
+      font-size: calc(var(--vh) * 3);
+      color: rgba(255, 255, 255, 0.5);
       user-select: none;
     }
 
     .time-adjust span {
       cursor: pointer;
-      background: rgba(255, 254, 254, 0);
-      padding: 0 0.8vw;
-      border-radius: 0.5vw;
-      user-select: none;
+      padding: 0 calc(var(--vw) * 0.8);
+      border-radius: calc(var(--vw) * 0.5);
       line-height: 1.5;
-      color: #4caf5055;
+      /*color: #4caf5055;*/
+      color: rgba(42, 143, 42, 0.7);
       font-weight: bold;
-      user-select: none;
-      transition: background-color 0.2s;
+      transition: background-color 0.5s;
     }
 
     .time-adjust span:hover {
-      background-color: #bbb;
-      color: #000;
+      /*background-color: #bbb;*/
+      color: #4caf5055;
     }
-  </style>
+  
+    @media (orientation: portrait) {
+      .header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: auto;
+        height: auto;
+      }
+
+      /* 固定左右宽度，保持中间对称 */
+      .team {
+        flex: 1 1 clamp(120px, 60%, 210px); /* 最小120，中间理想30%，最大180*/  
+        flex-shrink: 0; 
+
+      }
+
+      /* 中间 main 区域自适应，但要居中显示内容 */
+      .main {
+        flex: 1;
+        display: flex;
+        width: 100%;
+        flex-direction: row; /* 横排排显示比分等 */
+        align-items: center;     /* ✅ 居中内容 */
+        justify-content: center;
+        padding: calc(var(--vh) * 2);
+        background: url('static/scoreboard_bg.jpg') no-repeat center center;
+        background-size: cover;
+      }
+
+      .side {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        font-size: calc(var(--vh) * 2.5);
+      }
+
+      .score-box {
+        width:auto;
+      }
+
+     
+      html {
+        font-size: 50% !important; /* 强制缩小全局字体基准 */
+      }
+
+      .period{
+        font-size: 40px !important;
+      }
+
+      .score,
+      .value-display,
+      .middle .time{
+        font-size: 50px !important;
+      }
+      .adjust-small,
+      .info,
+      .time-adjust,
+      .adjust,
+      .ctrl-btn:hover,
+      .ctrl-btn,
+      .stats
+      .side,
+      .clock {
+        font-size: 25px !important;
+      }
+
+      .team-a img,
+      .team-b img {
+        height: calc(var(--vh) * 3) !important;
+        width: auto;
+      }
+
+
+    }
+
+
+  .value-display {
+    font-size: calc(var(--vh) * 10);
+    color: white;
+    margin-top: 0.5vh;
+  }
+  .adjust-small {
+    display: flex;
+    justify-content: center;
+    gap: 0.5vw;
+    font-size: calc(var(--vh) * 4);
+    color: #fff;
+    user-select: none;
+    cursor: pointer;
+  }
+  .adjust-small span:hover {
+    color: #ccc;
+  }
+
+</style>
 </head>
 <body>
-<div class="scoreboard">
-  <div class="header">
-    <div class="team team-a">
-      <img src="static/{{ data.teamALogo }}" alt="Team A Logo" />
-      <div id="teamAName">{{ data.teamAName }}</div>
+  <div class="scoreboard">
+    <div class="header">
+      <div class="team team-a">
+        <img src="static/{{ data.teamALogo }}" alt="Team A Logo" />
+        <div id="teamAName">{{ data.teamAName }}</div>
+      </div>
+      <div class="team team-b">
+        <img src="static/{{ data.teamBLogo }}" alt="Team B Logo" />
+        <div id="teamBName">{{ data.teamBName }}</div>
+      </div>
     </div>
-    <div class="team team-b">
-      <img src="static/{{ data.teamBLogo }}" alt="Team B Logo" />
-      <div id="teamBName">{{ data.teamBName }}</div>
+  
+    <div class="period" title="当前节数">
+      <span>
+        第 
+        <strong id="periodDisplay">
+          {{ data.period }}
+        </strong> 
+        节
+      </span>
+    </div>
+    
+  
+    <div class="main">
+      <div class="side">
+        <div class="score-box score-box-left">
+          <div class="score" id="scoreA">{{ data.scoreA }}</div>
+          <div class="adjust">
+            <span onclick="adjust('scoreA', 1)">▲</span>
+            <span onclick="adjust('scoreA', -1)">▼</span>
+          </div>
+          <div class="stats">
+            <div class="info">犯 规 <div class="adjust-small">
+        <span onclick="adjust('foulA', 1)">▲</span>
+        <span onclick="adjust('foulA', -1)">▼</span>
+      </div>
+      <div id="foulA" class="value-display">{{ data.foulsA }}</div></div>
+            <div class="info">暂 停 <div class="adjust-small">
+        <span onclick="adjust('timeoutA', 1)">▲</span>
+        <span onclick="adjust('timeoutA', -1)">▼</span>
+      </div>
+      <div id="timeoutA" class="value-display">{{ data.timeoutsA }}</div></div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="middle">
+        <div class="time" id="time">{{ data.time }}</div>
+        <div class="time-adjust">
+          <span onclick="adjustTime(1,0)">▲</span>
+          <span onclick="adjustTime(-1,0)">▼</span>
+          <span onclick="adjustTime(0,1)">▲</span>
+          <span onclick="adjustTime(0,-1)">▼</span>
+        </div>
+        <div style="margin-top: 2vh; display: flex; gap: 2vw;">
+          <button onclick="toggleTimer()" class="ctrl-btn" id="startPauseBtn">{{ '暂停' if data.isRunning else '开始' }}</button>
+          <button onclick="resetTimer()" class="ctrl-btn">清零</button>
+        </div>
+      </div>
+  
+      <div class="side">
+        <div class="score-box score-box-right">
+          <div class="score" id="scoreB">{{ data.scoreB }}</div>
+          <div class="adjust">
+            <span onclick="adjust('scoreB', 1)">▲</span>
+            <span onclick="adjust('scoreB', -1)">▼</span>
+          </div>
+          <div class="stats">
+            <div class="info">犯 规 <div class="adjust-small">
+        <span onclick="adjust('foulB', 1)">▲</span>
+        <span onclick="adjust('foulB', -1)">▼</span>
+      </div>
+      <div id="foulB" class="value-display">{{ data.foulsB }}</div></div>
+            <div class="info">暂 停 <div class="adjust-small">
+        <span onclick="adjust('timeoutB', 1)">▲</span>
+        <span onclick="adjust('timeoutB', -1)">▼</span>
+      </div>
+      <div id="timeoutB" class="value-display">{{ data.timeoutsB }}</div></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="period" title="当前节数">
-    <span>第 <strong id="periodDisplay">{{ data.period }}</strong> 节</span>
-  </div>
-
-  <div class="main">
-    <div class="side">
-      <div class="score-box score-box-left">
-        <div class="score" id="scoreA">{{ data.scoreA }}</div>
-        <div class="adjust">
-          <span onclick="adjust('scoreA', 1)">▲</span>
-          <span onclick="adjust('scoreA', -1)">▼</span>
-        </div>
-        <div class="stats">
-          <div class="info">犯 规 <input id="foulA" type="number" min="0" value="{{ data.foulsA }}" /></div>
-          <div class="info">暂 停 <input id="timeoutA" type="number" min="0" value="{{ data.timeoutsA }}" /></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="middle">
-      <div class="time" id="time">{{ data.time }}</div>
-      <div class="time-adjust">
-        <span onclick="adjustTime(1,0)">▲</span>
-        <span onclick="adjustTime(-1,0)">▼</span>
-        <span onclick="adjustTime(0,1)">▲</span>
-        <span onclick="adjustTime(0,-1)">▼</span>
-      </div>
-      <div style="margin-top: 2vh; display: flex; gap: 2vw;">
-        <button onclick="toggleTimer()" class="ctrl-btn" id="startPauseBtn">{{ '暂停' if data.isRunning else '开始' }}</button>
-        <button onclick="resetTimer()" class="ctrl-btn">清零</button>
-      </div>
-    </div>
-
-    <div class="side">
-      <div class="score-box score-box-right">
-        <div class="score" id="scoreB">{{ data.scoreB }}</div>
-        <div class="adjust">
-          <span onclick="adjust('scoreB', 1)">▲</span>
-          <span onclick="adjust('scoreB', -1)">▼</span>
-        </div>
-        <div class="stats">
-          <div class="info">犯 规 <input id="foulB" type="number" min="0" value="{{ data.foulsB }}" /></div>
-          <div class="info">暂 停 <input id="timeoutB" type="number" min="0" value="{{ data.timeoutsB }}" /></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script>
   let isRunning = {{ 'true' if data.isRunning else 'false' }};
@@ -310,7 +407,9 @@
 
   // 初始化 WebSocket 并自动重连
   function connectWebSocket() {
-    ws = new WebSocket(`ws://${location.host}/ws`);
+    const urlParams = new URLSearchParams(window.location.search);
+    const gameId = urlParams.get('game_id') || 'default';
+    ws = new WebSocket(`ws://${location.host}/ws?game_id=${gameId}`);
 
     ws.onopen = () => {
       console.log("✅ WebSocket connected");
@@ -321,7 +420,7 @@
         if (ws.readyState === WebSocket.OPEN) {
           ws.send(JSON.stringify({ ping: true }));
         }
-      }, 30000); // 每 30 秒发送一次心跳
+      }, 30000); // 每 30 秒心跳
     };
 
     ws.onclose = () => {
@@ -330,40 +429,70 @@
     };
 
     ws.onerror = (err) => {
-      console.error("WebSocket error:", err);
+      console.error("❌ WebSocket error:", err);
       ws.close();
     };
 
     ws.onmessage = function (event) {
       try {
         const d = JSON.parse(event.data);
-        if (d.buzzer === true) {
-          new Audio("static/buzzer.mp3").play();
-          return;
+        data = d;  // ✅ 核心：同步本地 data，确保按钮操作有效！
+        isRunning = d.isRunning;
+
+        // 更新比分、犯规、暂停、时间等显示
+        updateDisplay(data);
+
+        // 设置节数显示（加时判断）
+        const periodDisplay = document.getElementById('periodDisplay');
+        if (periodDisplay) {
+          if (d.period <= 4) {
+            periodDisplay.textContent = d.period;
+          } else {
+            periodDisplay.textContent = '加时';
+          }
         }
 
-        // 更新页面所有字段
-        document.getElementById("scoreA").innerText = d.scoreA;
-        document.getElementById("scoreB").innerText = d.scoreB;
-        document.getElementById("foulA").value = d.foulsA;
-        document.getElementById("foulB").value = d.foulsB;
-        document.getElementById("timeoutA").value = d.timeoutsA;
-        document.getElementById("timeoutB").value = d.timeoutsB;
-        document.getElementById("time").innerText = d.time;
-        document.getElementById("startPauseBtn").innerText = d.isRunning ? "暂停" : "开始";
-        isRunning = d.isRunning;
-        setPeriodDisplay(d.period);
-        document.querySelector(".team-a img").src = "static/" + d.teamALogo;
-        document.querySelector(".team-b img").src = "static/" + d.teamBLogo;
+        // 设置队伍信息
         document.getElementById("teamAName").innerText = d.teamAName;
         document.getElementById("teamBName").innerText = d.teamBName;
+        document.querySelector(".team-a img").src = "static/" + d.teamALogo;
+        document.querySelector(".team-b img").src = "static/" + d.teamBLogo;
+
+        // 播放蜂鸣音（如果需要）
+        if (d.buzzer === true) {
+          new Audio("static/buzzer.mp3").play();
+        }
       } catch (e) {
-        console.error("WebSocket message error:", e);
+        console.error("❗ WebSocket message error:", e);
       }
     };
   }
 
-  connectWebSocket(); // 启动 WebSocket 连接
+  connectWebSocket();
+
+  function updateDisplay(d) {
+    document.getElementById("scoreA").innerText = d.scoreA;
+    document.getElementById("scoreB").innerText = d.scoreB;
+    document.getElementById("foulA").innerText = d.foulsA;
+    document.getElementById("foulB").innerText = d.foulsB;
+    document.getElementById("timeoutA").innerText = d.timeoutsA;
+    document.getElementById("timeoutB").innerText = d.timeoutsB;
+    document.getElementById("time").innerText = d.time;
+    setPeriodDisplay(d.period);
+    document.getElementById("startPauseBtn").innerText = d.isRunning ? "暂停" : "开始";
+  }
+
+
+  function setPeriodDisplay(period) {
+    const periodDisplay = document.getElementById('periodDisplay');
+    if (!periodDisplay) return;
+
+    if (period <= 4) {
+      periodDisplay.textContent = period;
+    } else {
+      periodDisplay.textContent = '加时';
+    }
+  }
 
   function sendUpdate(obj) {
     if (ws && ws.readyState === WebSocket.OPEN) {
@@ -371,84 +500,52 @@
     }
   }
 
-  function tick() {
-    const el = document.getElementById("time");
-    let [m, s] = el.innerText.split(":").map(Number);
-    if (m === 0 && s === 0) {
-      stopTimer();
-      sendUpdate({ buzzer: true });
-
-      if (!overtime && period < 4) {
-        period++;
-        setPeriodDisplay(period);
-        sendUpdate({ period, time: "10:00" });
-      } else if (!overtime && period === 4) {
-        overtime = true;
-        setPeriodDisplay("加时");
-        sendUpdate({ period: "加时", time: "05:00" });
-      }
-      return;
-    }
-
-    if (s === 0) {
-      m--;
-      s = 59;
-    } else {
-      s--;
-    }
-
-    const timeStr = `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
-    el.innerText = timeStr;
-    sendUpdate({ time: timeStr });
-  }
+  
 
   function startTimer() {
-    if (isRunning) return;
-    isRunning = true;
-    timer = setInterval(tick, 1000);
-    document.getElementById("startPauseBtn").innerText = "暂停";
+    if (isRunning) return; // 本地变量主要用于防止重复点击，这里可以保留
     sendUpdate({ isRunning: true });
+    // 不直接修改本地状态，等待服务端同步
   }
 
   function stopTimer() {
-    clearInterval(timer);
-    isRunning = false;
-    document.getElementById("startPauseBtn").innerText = "开始";
     sendUpdate({ isRunning: false });
+    // 不直接修改本地状态，等待服务端同步
   }
+
 
   function toggleTimer() {
-    const btnState = document.getElementById("startPauseBtn").innerText;
-    const newState = btnState === "开始";
-    if (newState === isRunning) return;
-
-    if (newState) startTimer();
-    else stopTimer();
-
-    sendUpdate({ isRunning: newState });
+    if (isRunning) {
+      sendUpdate({ isRunning: false });
+    } else {
+      sendUpdate({ isRunning: true });
+    }
   }
+
 
   function resetTimer() {
     if (isRunning) return;
-    document.getElementById("scoreA").innerText = "0";
-    document.getElementById("scoreB").innerText = "0";
-    document.getElementById("foulA").value = "0";
-    document.getElementById("foulB").value = "0";
-    document.getElementById("timeoutA").value = "0";
-    document.getElementById("timeoutB").value = "0";
-    document.getElementById("time").innerText = "12:00";
-    setPeriodDisplay(1);
-    isRunning = false;
-    overtime = false;
-    period = 1;
-    document.getElementById("startPauseBtn").innerText = "开始";
 
+    // ✅ 更新前端状态对象
+    data.scoreA = 0;
+    data.scoreB = 0;
+    data.foulsA = 0;
+    data.foulsB = 0;
+    data.timeoutsA = 0;
+    data.timeoutsB = 0;
+    data.time = "10:00";
+    data.period = 1;
+    data.isRunning = false;
+    data.overtime = false;
+
+    // ✅ 更新界面
+    updateDisplay(data);
+
+    // ✅ 同步状态
     sendUpdate({ reset: true });
   }
 
-  function setPeriodDisplay(p) {
-    document.getElementById("periodDisplay").innerText = p;
-  }
+
 
   function adjust(id, amount) {
     const el = document.getElementById(id);
@@ -457,7 +554,11 @@
     el.innerText = val;
     sendUpdate({
       scoreA: parseInt(document.getElementById("scoreA").innerText),
-      scoreB: parseInt(document.getElementById("scoreB").innerText)
+      scoreB: parseInt(document.getElementById("scoreB").innerText),
+      foulsA: parseInt(document.getElementById("foulA").innerText),
+      foulsB: parseInt(document.getElementById("foulB").innerText),
+      timeoutsA: parseInt(document.getElementById("timeoutA").innerText),
+      timeoutsB: parseInt(document.getElementById("timeoutB").innerText)
     });
   }
 
@@ -477,18 +578,19 @@
     sendUpdate({ time: timeStr });
   }
 
-  ["foulA", "foulB", "timeoutA", "timeoutB"].forEach(id => {
-    document.getElementById(id).addEventListener("input", () => {
-      sendUpdate({
-        foulsA: parseInt(document.getElementById("foulA").value),
-        foulsB: parseInt(document.getElementById("foulB").value),
-        timeoutsA: parseInt(document.getElementById("timeoutA").value),
-        timeoutsB: parseInt(document.getElementById("timeoutB").value)
-      });
-    });
-  });
+
+  // 设置 vh/vw 变量
+  function updateVwVhVars() {
+    document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    document.documentElement.style.setProperty('--vw', `${window.innerWidth * 0.01}px`);
+  }
+
+  window.addEventListener('resize', updateVwVhVars);
+  window.addEventListener('load', updateVwVhVars);
+  window.addEventListener('orientationchange', updateVwVhVars);
+
+
+  updateVwVhVars()
 </script>
-
-
 </body>
 </html>
