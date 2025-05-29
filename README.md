@@ -53,7 +53,7 @@
 
 ## 📸 页面预览
 
-![界面示意图](static/demo_screenshot.png)
+![界面示意图](static/index.png)
 
 ---
 
@@ -64,7 +64,7 @@
 ├── static/             # 前端静态资源（JS/CSS/logo）
 ├── templates/          # Jinja2 HTML模板
 ├── app.py              # 主后端程序
-├── config.json         # 可选：比赛配置信息
+├── data.json           # 比赛存储
 ├── README.md           # 项目说明
 └── requirements.txt    # Python依赖列表
 
