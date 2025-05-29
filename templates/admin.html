@@ -5,23 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Basketball Scoreboard Admin</title>
   <style>
-    /* 简单风格，和主界面呼应 */
     body {
       font-family: 'Arial Black', sans-serif;
       background: #eee;
-      margin: 0; padding: 1vh 2vw;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
     }
-    h1 {
-      color: #333;
-      margin-bottom: 1vh;
-    }
-    form {
+
+    .container {
+      margin-top: 5vh;
       background: white;
       padding: 2vh 2vw;
       border-radius: 1vw;
       max-width: 600px;
+      width: 100%;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
+
+    h1 {
+      color: #333;
+      margin-bottom: 1vh;
+      text-align: center;
+    }
+
     label {
       display: block;
       margin-top: 1.5vh;
@@ -29,6 +39,7 @@
       font-size: 1.5rem;
       color: #444;
     }
+
     input[type="text"], input[type="file"] {
       width: 100%;
       padding: 0.5vh 0.5vw;
@@ -37,11 +48,13 @@
       border: 2px solid #ccc;
       border-radius: 0.5vw;
     }
+
     img {
       max-height: 6vh;
       margin-top: 0.5vh;
       display: block;
     }
+
     button {
       margin-top: 2vh;
       font-size: 1.3rem;
@@ -54,32 +67,68 @@
       box-shadow: 0 0 5px rgba(0,0,0,0.3);
       transition: background-color 0.3s;
     }
+
     button:hover {
       background-color: #388e3c;
+    }
+
+    .delete-btn {
+      background-color: #d32f2f;
+      margin-top: 2vh;
+    }
+
+    .delete-btn:hover {
+      background-color: #b71c1c;
+    }
+
+    .info {
+      font-size: 1.2rem;
+      color: #666;
+      text-align: center;
+      margin-bottom: 2vh;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   </style>
 </head>
 <body>
 
-<h1>Basketball Scoreboard Admin</h1>
+<div class="container">
+  <h1>管理页面</h1>
+  <div class="info">当前比赛 ID: <strong style="color: #1976d2;">{{ game_id | url_unquote }}</strong></div>
 
-<form method="post" enctype="multipart/form-data">
-  <label for="teamAName">Team A Name</label>
-  <input type="text" id="teamAName" name="teamAName" value="{{ data.teamAName }}" required />
+  <!-- 表单：编辑队伍名称与 Logo -->
+  <form method="post" enctype="multipart/form-data" action="?game_id={{ game_id }}">
+    <label for="teamAName">Team A Name</label>
+    <input type="text" id="teamAName" name="teamAName" value="{{ data.teamAName }}" required />
 
-  <label for="teamALogo">Team A Logo (webp)</label>
-  <input type="file" id="teamALogo" name="teamALogo" accept=".webp" />
-  <img src="static/{{ data.teamALogo }}" alt="Team A Logo" />
+    <label for="teamALogo">Team A Logo (webp)</label>
+    <input type="file" id="teamALogo" name="teamALogo" accept=".webp" />
+    <img src="static/{{ data.teamALogo }}" alt="Team A Logo" />
 
-  <label for="teamBName">Team B Name</label>
-  <input type="text" id="teamBName" name="teamBName" value="{{ data.teamBName }}" required />
+    <label for="teamBName">Team B Name</label>
+    <input type="text" id="teamBName" name="teamBName" value="{{ data.teamBName }}" required />
 
-  <label for="teamBLogo">Team B Logo (webp)</label>
-  <input type="file" id="teamBLogo" name="teamBLogo" accept=".webp" />
-  <img src="static/{{ data.teamBLogo }}" alt="Team B Logo" />
+    <label for="teamBLogo">Team B Logo (webp)</label>
+    <input type="file" id="teamBLogo" name="teamBLogo" accept=".webp" />
+    <img src="static/{{ data.teamBLogo }}" alt="Team B Logo" />
 
-  <button type="submit">Save Changes</button>
-</form>
+    <div class="actions">
+      <button type="submit">保存</button>
+    </div>
+  </form>
+
+  <!-- 表单：删除比赛 -->
+  <form method="post" action="/delete_game/{{ game_id }}" onsubmit="return confirm('确认要删除该比赛场次吗？此操作不可恢复！')">
+    <div class="actions">
+      <button type="submit" class="delete-btn">❌ 删除本比赛</button>
+    </div>
+  </form>
+</div>
 
 </body>
 </html>
