@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>比赛管理中心</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #e3f2fd, #ffffff);
+      color: #333;
+      padding: 2vh 4vw;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3vh;
+      margin-bottom: 4vh;
+      color: #1976d2;
+    }
+
+    .game-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2vh 2vw;
+      margin-bottom: 5vh;
+    }
+
+    .card {
+      background: #ffffffdd;
+      border-radius: 1vh;
+      padding: 2vh 2vw;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .card-title {
+      font-size: 2.5vh;
+      font-weight: bold;
+      margin-bottom: 1vh;
+    }
+
+    .card-buttons {
+      margin-top: 1.5vh;
+      display: flex;
+      gap: 1vw;
+      flex-wrap: wrap;
+    }
+
+    .card-buttons a {
+      text-decoration: none;
+      padding: 0.8vh 1.2vw;
+      background-color: #1976d2;
+      color: white;
+      border-radius: 0.5vh;
+      font-size: 1.8vh;
+      transition: background-color 0.3s;
+    }
+
+    .card-buttons a:hover {
+      background-color: #0d47a1;
+    }
+
+    .new-game {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 2vh 2vw;
+      border-radius: 1vh;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .new-game h2 {
+      font-size: 2.3vh;
+      margin-bottom: 2vh;
+      color: #388e3c;
+      text-align: center;
+    }
+
+    .new-game form {
+      display: flex;
+      gap: 1vw;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .new-game input[type="text"] {
+      flex: 1;
+      padding: 1vh 1vw;
+      font-size: 1.8vh;
+      border: 2px solid #ccc;
+      border-radius: 0.5vh;
+    }
+
+    .new-game button {
+      padding: 1vh 2vw;
+      font-size: 1.8vh;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 0.5vh;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .new-game button:hover {
+      background-color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🏀 比赛管理中心</h1>
+
+  <div class="game-list">
+        {% for label, raw_id in game_map.items() %}
+        <div class="card">
+        <div class="card-title">比赛 ID：{{ label }}</div>
+        <div class="card-buttons">
+            <a href="/?game_id={{ raw_id }}">进入记分牌</a>
+            <a href="/admin?game_id={{ raw_id }}">进入后台</a>
+        </div>
+        </div>
+    {% else %}
+        <div style="text-align: center; font-size: 2vh;">当前没有比赛，快创建一个！</div>
+    {% endfor %}
+  
+  </div>
+
+  <div class="new-game">
+    <h2>➕ 新建比赛</h2>
+    <form action="/" method="get">
+      <input type="text" name="game_id" placeholder="请输入比赛 ID，例如 match1" required />
+      <button type="submit">创建并进入</button>
+    </form>
+  </div>
+
+</body>
+</html>
